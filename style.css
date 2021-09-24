@@ -1,11 +1,17 @@
 html,
 body {
+  --color-primary: #15573f;
+  --color-secondary: #75bc97;
+  --gray-bg: #f2f2f2;
+  --gray-text: rgb(169, 169, 169);
+  --white: #fff;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
   width: 100%;
-  font-family: "Montserrat", sans-serif;
-  box-sizing: border-box;
 }
+
 h1,
 h2,
 h3,
@@ -13,79 +19,94 @@ h4,
 h5,
 h6,
 p {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 select:focus {
   outline: none;
 }
 
+.flex-center-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+/*********** Header Styles ************/
+
 header {
-  height: 500px;
-  background-color: rgb(117, 188, 151);
+  background-color: var(--color-secondary);
   background-image: url(images/hero/desktop/plantperson.png);
+  background-position: 78%;
   background-repeat: no-repeat;
   background-size: 26%;
-  background-position: 78%;
   display: flex;
+  height: 500px;
   justify-content: space-between;
 }
 
 .header-first {
-  width: 70%;
   background-image: url(images/hero/desktop/left-leaves.png);
   background-repeat: no-repeat;
   background-size: contain;
+  width: 70%;
 }
+
 .header-first > h1 {
-  margin-left: 288px;
+  color: var(--white);
   font-size: 70px;
+  margin-left: 288px;
   width: 50%;
-  color: #fff;
 }
+
 .arrow {
   margin-left: 288px;
   margin-top: 30px;
 }
+
 .greenthumb {
   margin-bottom: 48px;
-  margin-top: 48px;
   margin-left: 288px;
+  margin-top: 48px;
   width: 220px;
 }
+
 .header-second {
-  width: 20%;
   background-image: url(images/hero/desktop/right-leaves.png);
   background-repeat: no-repeat;
   background-size: cover;
+  width: 20%;
 }
 
 @media screen and (max-width: 480px) {
   header {
     background-image: url(images/hero/mobile/mobile-plantperson.png);
+    background-position: center 95%;
     background-repeat: no-repeat;
     background-size: 90%;
-    background-position: center 95%;
     height: 593px;
   }
+
   .header-first {
-    background-position: cover;
     background-image: url(images/hero/mobile/mobile-leaves.png);
+    background-position: cover;
     min-height: 412px;
     width: 100%;
   }
+
   .greenthumb {
-    width: 160px;
     margin: 30px 0 26px 34px;
+    width: 160px;
   }
 
   .header-first > h1 {
-    width: 80%;
-    color: #fff;
+    color: var(--white);
     font-size: 38px;
     margin-left: 34px;
+    width: 80%;
   }
+
   .arrow {
     margin-left: 40px;
     margin-top: 20px;
@@ -96,44 +117,49 @@ header {
   }
 }
 
-/* end of header ********************/
-
+/*********** Content Styles ************/
 .filter-icon {
   height: 75px;
   margin-bottom: 20px;
 }
+
 .mirror {
   transform: scale(1, 1) scale(-1, 1);
 }
 
 .content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 60%;
-  margin: 0 auto;
   gap: 70px;
+  justify-content: space-between;
+  margin: 0 auto;
   padding: 56px 0;
+  width: 60%;
 }
+
 .filter-sec {
-  color: rgb(169, 169, 169);
+  color: var(--gray-text);
 }
+
 .select-input {
-  margin-top: 20px;
-  width: 100%;
-  height: 40px;
+  border: 1px solid var(--gray-text);
   border-radius: 19px;
+  color: var(--gray-text);
+  height: 40px;
+  margin-top: 20px;
   padding: 10px;
-  border: 1px solid rgb(185, 185, 185);
-  color: rgb(169, 169, 169);
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.select-input:hover {
+  box-shadow: rgba(116, 188, 151, 0.5) 0px 8px 24px;
 }
 
 @media screen and (max-width: 480px) {
   .content {
     flex-direction: column;
+    gap: 60px;
     justify-content: center;
     padding: 18px 0 38px 0;
-    gap: 60px;
     width: 100%;
   }
 
@@ -141,29 +167,25 @@ header {
     width: 80%;
   }
 }
-/* end of content ********************/
 
+/*********** No Results Styles ************/
 .no-results {
-  background-color: rgb(246, 246, 246);
-  display: flex;
-  align-items: center;
+  background-color: var(--gray-bg);
+  color: var(--gray-text);
   justify-content: flex-start;
   padding: 52px 290px;
   text-align: left;
-  color: rgb(169, 169, 169);
 }
 
 .no-results-div {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 68%;
 }
 
 .no-results-div > h3 {
   font-size: 45px;
-  margin-bottom: 13px;
   line-height: 54px;
+  margin-bottom: 13px;
 }
 
 .no-results-div > p {
@@ -194,12 +216,11 @@ header {
   }
 }
 
-/* end of content ********************/
-
+/*********** Results Styles ************/
 .results {
-  background-color: rgb(246, 246, 246);
-  padding: 38px 270px;
+  background-color: var(--gray-bg);
   display: none;
+  padding: 38px 270px;
 }
 
 .results > img {
@@ -214,26 +235,21 @@ header {
 
 .items {
   margin: 0 auto;
-  display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
 }
 
 .card {
-  background-color: #fff;
-  display: flex;
+  background-color: var(--white);
   flex-direction: column;
-  align-items: center;
   justify-content: space-evenly;
   height: 245px;
   width: 206px;
   padding: 8px 20px;
   border-radius: 5px;
   margin-top: 20px;
-  color: #1e6b4e;
+  color: var(--color-primary);
   position: relative;
-
 }
 
 .plant-name {
@@ -254,26 +270,23 @@ header {
 .item-icon {
   height: 20px;
   width: 20px;
-  margin-left:10px;
+  margin-left: 10px;
 }
 
 .to-top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 50px;
   margin: 0 auto;
   margin-top: 32px;
   border-radius: 25px;
-  border: 1px solid #316b56;
-  color: #316b56;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
   transition: all 0.2s;
   cursor: pointer;
 }
 
 .to-top:hover {
-  background-color: #75bc97;
+  background-color: var(--color-secondary);
   border: none;
 }
 
@@ -282,11 +295,10 @@ header {
 }
 
 .fav {
-  background-color: #75bc97;
+  background-color: var(--color-secondary);
   padding: 10px;
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
-
   position: absolute;
   top: 20px;
   left: 0;
@@ -318,5 +330,23 @@ header {
 
   .item-image {
     margin-bottom: 20px;
+  }
+}
+
+/*********** Loading Styles ************/
+.loading {
+  background-color: var(--color-secondary);
+  display: none;
+  height: 200px;
+}
+
+.loading h1 {
+  color: var(--color-primary);
+  font-size: 40px;
+}
+
+@media screen and (max-width: 480px) {
+  .loading h1 {
+    font-size: 20px;
   }
 }

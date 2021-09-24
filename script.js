@@ -1,16 +1,16 @@
-const toTop = () => {
+const backToTop = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 };
 
-const createProductImageElement = (imageSource, classname) => {
+const createPlantImage = (imageSource, classname) => {
   const img = document.createElement("img");
   img.className = classname;
   img.src = imageSource;
   return img;
 };
 
-const createIcon = (param, opt1, src1, opt2, src2, src3) => {
+const createPlantIcon = (param, opt1, src1, opt2, src2, src3) => {
   const icon = document.createElement("img");
   icon.className = "item-icon";
 
@@ -33,26 +33,22 @@ const createCustomElement = (element, className, innerText) => {
   return el;
 };
 
-const createProductItemElement = ({
+const createPlantItemElement = ({
   image,
   name,
   price,
   sun,
   water,
   toxicity,
-  favorite
+  favorite,
 }) => {
   const plantCard = document.createElement("div");
-  plantCard.className = "card";
-  console.log(favorite)
-
-
-
+  plantCard.className = "card flex-center-center";
   const plantInfo = document.createElement("div");
   plantInfo.className = "info";
-  plantInfo.appendChild(createCustomElement("h3", "plant-price", '$' + price));
+  plantInfo.appendChild(createCustomElement("h3", "plant-price", "$" + price));
   plantInfo.appendChild(
-    createIcon(
+    createPlantIcon(
       toxicity,
       "true",
       "images/icons/toxic.svg",
@@ -62,7 +58,7 @@ const createProductItemElement = ({
     )
   );
   plantInfo.appendChild(
-    createIcon(
+    createPlantIcon(
       sun,
       "no",
       "images/icons/no-sun.svg",
@@ -72,7 +68,7 @@ const createProductItemElement = ({
     )
   );
   plantInfo.appendChild(
-    createIcon(
+    createPlantIcon(
       water,
       "rarely",
       "images/icons/1-drop.svg",
@@ -81,29 +77,36 @@ const createProductItemElement = ({
       "images/icons/3-drops.svg"
     )
   );
-  if(favorite) {
-    plantInfo.appendChild(createProductImageElement("images/icons/fav.svg", "fav"));
+  if (favorite) {
+    plantInfo.appendChild(
+      createPlantImage("images/icons/fav.svg", "fav")
+    );
   }
 
-  plantCard.appendChild(createProductImageElement(image, "item-image"));
+  plantCard.appendChild(createPlantImage(image, "item-image"));
   plantCard.appendChild(createCustomElement("h3", "plant-name", name));
   plantCard.appendChild(plantInfo);
   return plantCard;
 };
 
-const returnProduct = (results) => {
-  const product = {};
-  results.sort((a,b) => (a === b) ? 0 : a ? -1 : 1).forEach((item) => {
-    product.image = item.url;
-    product.name = item.name;
-    product.price = item.price;
-    product.sun = item.sun;
-    product.water = item.water;
-    product.toxicity = item.toxicity;
-    product.favorite = item.staff_favorite
-    const section = createProductItemElement(product);
-    document.getElementsByClassName("items")[0].appendChild(section);
-  });
+const returnPlant = (results) => {
+  document.getElementById("results").style.display = "block";
+  document.getElementById("loading").style.display = "none";
+
+  const plant = {};
+  results
+    .sort((a, b) => (a === b ? 0 : a ? -1 : 1))
+    .forEach((item) => {
+      plant.image = item.url;
+      plant.name = item.name;
+      plant.price = item.price;
+      plant.sun = item.sun;
+      plant.water = item.water;
+      plant.toxicity = item.toxicity;
+      plant.favorite = item.staff_favorite;
+      const section = createPlantItemElement(plant);
+      document.getElementsByClassName("items")[0].appendChild(section);
+    });
 
   if (results.length > 0) {
     document.getElementById("toHide").style.display = "none";
@@ -111,15 +114,39 @@ const returnProduct = (results) => {
   }
 };
 
-const fetchAPI = (URL) => {
-  fetch(URL)
-    .then((response) => response.json())
-    .then((data) => returnProduct(data))
-    .catch(console.error);
-};
+const search = () => {
+  const sun = document.getElementById("sun");
+  var sunValue = sun.options[sun.selectedIndex].value;
 
-window.onload = function onload() {
-  fetchAPI(
-    "https://front-br-challenges.web.app/api/v2/green-thumb/?sun=no&water=regularly&pets=false"
+  const water = document.getElementById("water");
+  var waterValue = water.options[water.selectedIndex].value;
+
+  const toxic = document.getElementById("toxic");
+  var toxicValue = toxic.options[toxic.selectedIndex].value;
+
+  return fetchAPI(
+    `https://front-br-challenges.web.app/api/v2/green-thumb/?sun=${
+      sunValue ? sunValue : "no"
+    }&water=${waterValue ? waterValue : "daily"}&pets=${
+      toxicValue ? toxicValue : "false"
+    }`
   );
 };
+
+const fetchAPI = (URL) => {
+  const father = document.getElementById("results");
+  father.style.display = "none";
+  document.getElementById("loading").style.display = "flex";
+  document.getElementById("no-results").style.display = "none";
+  const childs = document.getElementById("items");
+  childs.innerHTML = "";
+
+  setTimeout(() => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => returnPlant(data))
+      .catch(console.error);
+  }, 1000);
+};
+
+window.onload = function onload() {};

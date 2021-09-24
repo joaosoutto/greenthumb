@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <title>Front End Test - Greenthumb</title>
+    <title>Greenthumb</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -18,7 +18,7 @@
         <img
           class="greenthumb"
           src="images/icons/logo-white.svg"
-          alt="Greenthumb"
+          alt="Greenthumb logo"
         />
         <h1>Find your next green friend</h1>
         <img
@@ -27,10 +27,13 @@
           alt="An arrow poiting down"
         />
       </div>
+
       <div class="header-second" />
     </header>
-    <!-- END OF HEADER ----------------------------------->
-    <section class="content">
+
+    <!------------------------------------>
+
+    <section class="content flex-center-center">
       <div class="filter-sec">
         <img
           class="filter-icon"
@@ -41,7 +44,13 @@
           <strong>1. </strong>Set the amount of <strong>sunligth</strong> your
           plant will get.
         </p>
-        <select class="select-input" name="sunlight" id="sunlight">
+        <select
+          id="sun"
+          onchange="search()"
+          class="select-input"
+          name="sunlight"
+          id="sunlight"
+        >
           <option value="">Select...</option>
           <option value="no">No sunlight</option>
           <option value="low">A little of sunlight</option>
@@ -59,7 +68,13 @@
           <strong>2.</strong> How often do you want to
           <strong>water</strong> your plant?
         </p>
-        <select class="select-input" name="water" id="water">
+        <select
+          id="water"
+          onchange="search()"
+          class="select-input"
+          name="water"
+          id="water"
+        >
           <option value="">Select...</option>
           <option value="rarely">Rarely</option>
           <option value="regularly">Regularly</option>
@@ -77,28 +92,42 @@
           <strong>3.</strong> Do you have pets? Do they
           <strong>chew</strong> plants?
         </p>
-        <select class="select-input" name="dog" id="dog">
+        <select
+          id="toxic"
+          onchange="search()"
+          class="select-input"
+          name="dog"
+          id="dog"
+        >
           <option value="">Select...</option>
           <option value="false">No, they dont</option>
           <option value="true">Yes, they do</option>
         </select>
       </div>
     </section>
-    <!-- END OF content ----------------------------------->
-    <section id="results" class="results" >
+
+    <!------------------------------------>
+
+    <section id="results" class="results">
       <img src="images/illustrations/pick.png" alt="picking a plant image" />
       <h2>Our picks for you</h2>
-      <div class="items">
-        <!-- <div class="info"></div> -->
-      </div>
-      <button onclick="toTop()" type="button" class="to-top">
-        <img src="images/icons/arrow-up.svg" alt="arrow pointing uop"/>
+
+      <div id="items" class="items flex-center-center"></div>
+
+      <button
+        onclick="backToTop()"
+        type="button"
+        class="to-top flex-center-center"
+      >
+        <img src="images/icons/arrow-up.svg" alt="arrow pointing uop" />
         back to the top
       </button>
     </section>
-    <!-- END OF HEADER ----------------------------------->
-    <section id='toHide' class="no-results">
-      <div class="no-results-div">
+
+    <!------------------------------------>
+
+    <section id="no-results" class="no-results flex-center-center">
+      <div class="no-results-div flex-center-center">
         <h3>No results yet...</h3>
         <p>
           Use the filters above to find the plant that best fits your
@@ -109,6 +138,10 @@
         src="images/illustrations/no-results.png"
         alt="An empty jar of plants, symbolizing a 'no results' image"
       />
+    </section>
+
+    <section id="loading" class="loading flex-center-center">
+      <h1>Loading plants...</h1>
     </section>
   </body>
 </html>
